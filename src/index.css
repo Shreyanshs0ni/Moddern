@@ -2,7 +2,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@config "../../Moddern/tailwind.config.js";
 
 body {
   width: 100dvw;
