@@ -2,7 +2,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+* {
+  scroll-behavior: smooth;
+  scrollbar-color: black;
+}
 body {
   width: 100dvw;
   overflow-x: hidden;

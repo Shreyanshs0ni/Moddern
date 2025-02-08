@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
-
+import clsx from "clsx";
 const AnimatedTitle = ({ title, containerClass }) => {
   const containerRef = useRef(null);
 
@@ -26,7 +26,7 @@ const AnimatedTitle = ({ title, containerClass }) => {
   }, []);
 
   return (
-    <div className={`animated-title ${containerClass}`} ref={containerRef}>
+    <div className={clsx("animated-title", containerClass)} ref={containerRef}>
       {title.split("<br/>").map((line, index) => (
         <div
           key={index}

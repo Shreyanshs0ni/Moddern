@@ -120,7 +120,6 @@ const Hero = () => {
             muted
             className="absolute left-0 top-0 size-full object-cover object-center"
             onLoadedData={handleVideoLoad}
-            
           />
         </div>
         <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
@@ -140,7 +139,7 @@ const Hero = () => {
               id="watch-trailer"
               title="Watch Trailer"
               leftIcon={<TiLocationArrow />}
-              containerClass="!bg-yellow-300 flex-center gap-1  "
+              containerClass="!bg-yellow-300 flex-center gap-1 transition-colors duration-300 hover:!bg-black hover:text-yellow-300  "
             />
           </div>
         </div>

@@ -47,7 +47,6 @@ const About = () => {
             src="img/about.webp"
             alt="Background"
             className="absolute left-0 top-0 size-full object-cover"
-            style={{ marginTop: "50px" }}
           />
         </div>
       </div>
