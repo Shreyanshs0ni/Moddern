@@ -3,7 +3,7 @@ const Button = ({ title, id, rightIcon, leftIcon, containerClass }) => {
   return (
     <button
       id={id}
-      className={`group relative z-10 w-fit cursor-pointer overflow-hidden rounded-full px-7 py-3 text-black ${containerClass} transition-colors duration-300 hover:!bg-black hover:text-yellow-300`}
+      className={`group relative z-10 w-fit overflow-hidden rounded-full px-7 py-3 text-black ${containerClass} cursor-pointer transition-colors duration-300 hover:!bg-black hover:text-yellow-300`}
     >
       {leftIcon}
 

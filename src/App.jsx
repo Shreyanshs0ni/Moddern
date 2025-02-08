@@ -1,5 +1,5 @@
-import About from "./conmponents/About";
-import Hero from "./conmponents/Hero";
+import About from "./components/About";
+import Hero from "./components/Hero";
 
 const App = () => {
   return (
