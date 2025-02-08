@@ -1,25 +1,28 @@
 /* eslint-disable no-unused-vars */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import { TiArrowBackOutline, TiLocationArrow } from "react-icons/ti";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger);
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [hasClicked, setHasClicked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [loadedVideos, setLoadedVideos] = useState(0);
+  const [loadedVideos, setLoadedVideos] = useState(1);
 
-  const totalVideos = 3;
+  const totalVideos = 4;
   const nextVideoRef = useRef(null);
+  const handleVideoLoad = () => {
+    setLoadedVideos((prev) => prev + 1);
+  };
 
   const handleMiniVdClick = () => {
     setHasClicked(true);
     setCurrentIndex(upcomingVideoIndex);
   };
-  const handleVideoLoad = () => {
-    setLoadedVideos((prev) => prev + 1);
-  };
+
   const upcomingVideoIndex = (currentIndex % totalVideos) + 1;
 
   const getVideosrc = (index) => `videos/hero-${index}.mp4`;
@@ -46,8 +49,39 @@ const Hero = () => {
     },
     { dependencies: [currentIndex], revertOnUpdate: true },
   );
+  useGSAP(() => {
+    gsap.set("#video-frame", {
+      clipPath: "polygon(14% 0%, 72% 0%, 90% 90%, 0% 100%)",
+      borderRadius: "0 0 40% 10%",
+    });
+    gsap.from("#video-frame", {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      borderRadius: "0 0 0 0",
+      ease: "power1.inOut",
+      scrollTrigger: {
+        trigger: "#video-frame",
+        start: "center center",
+        end: "bottom center",
+        scrub: true,
+      },
+    });
+  });
+  useEffect(() => {
+    if (loadedVideos === totalVideos - 1) {
+      setIsLoading(false);
+    }
+  }, [loadedVideos]);
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
+      {isLoading && (
+        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
+          <div className="three-body">
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
+          </div>
+        </div>
+      )}
       <div
         id="video-frame"
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
@@ -105,15 +139,15 @@ const Hero = () => {
               id="watch-trailer"
               title="Watch Trailer"
               leftIcon={<TiLocationArrow />}
-              containerClass="!bg-yellow-300 flex-center gap-1"
+              containerClass="!bg-yellow-300 flex-center gap-1 "
             />
-            <h1 className="special-font hero-heading absolute bottom-5 right-5 text-black">
-              {" "}
-              G<b>a</b>ming
-            </h1>
           </div>
         </div>
       </div>
+      <h1 className="special-font hero-heading absolute bottom-5 right-5 z-[-2] text-black">
+        {" "}
+        G<b>a</b>ming
+      </h1>
     </div>
   );
 };
