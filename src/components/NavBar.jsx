@@ -15,6 +15,12 @@ const NavBar = () => {
   const navContainerRef = useRef(null);
   const audioElementRef = useRef(null);
   const { y: currentScrollY } = useWindowScroll();
+
+  const toggleAudioIndicator = () => {
+    setIsAudioPlaying((prev) => !prev);
+    setIsIndicatorActive((prev) => !prev);
+  };
+
   useEffect(() => {
     if (currentScrollY === 0) {
       setIsNavVisible(true);
@@ -35,17 +41,18 @@ const NavBar = () => {
       opacity: isNavVisible ? 1 : 0,
       duration: 0.2,
     });
-  }, [isNavVisible]);
+  }, []);
 
-  const toggleAudioIndicator = () => {
-    setIsAudioPlaying((prev) => !prev);
-    setIsIndicatorActive((prev) => !prev);
-  };
   useEffect(() => {
-    if (isAudioPlaying) {
-      audioElementRef.current.play();
-    } else {
-      audioElementRef.current.pause();
+    if (audioElementRef.current) {
+      audioElementRef.current.muted = false; // Unmute the audio
+      if (isAudioPlaying) {
+        audioElementRef.current
+          .play()
+          .catch((error) => console.error("Autoplay failed:", error));
+      } else {
+        audioElementRef.current.pause();
+      }
     }
   }, [isAudioPlaying]);
 
@@ -88,6 +95,7 @@ const NavBar = () => {
                 className="hidden"
                 src="/audio/loop.mp3"
                 loop
+                allow=" autoplay"
               />
 
               {[1, 2, 3, 4].map((bar) => (
