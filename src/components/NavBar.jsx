@@ -33,7 +33,7 @@ const NavBar = () => {
       navContainerRef.current.classList.add("floating-nav");
     }
     setLastScrollY(currentScrollY);
-  }, [currentScrollY, lastScrollY]);
+  }, [currentScrollY]);
 
   useEffect(() => {
     gsap.to(navContainerRef.current, {
@@ -41,7 +41,7 @@ const NavBar = () => {
       opacity: isNavVisible ? 1 : 0,
       duration: 0.2,
     });
-  }, []);
+  }, [isNavVisible]);
 
   useEffect(() => {
     if (audioElementRef.current) {
@@ -55,7 +55,6 @@ const NavBar = () => {
       }
     }
   }, [isAudioPlaying]);
-
   return (
     <div
       ref={navContainerRef}
